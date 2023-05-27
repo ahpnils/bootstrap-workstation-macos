@@ -1,2 +1,56 @@
 ---
 # vars file for bootstrap_workstation_macos
+
+macws_pkgin_pkg_list:
+  - bash
+  - bash-completion
+  - bat
+  - coreutils
+  - curl
+  - exa
+  - git-base
+  - git-delta
+  - gh
+  - gmake
+  - htop
+  - iftop
+  - most
+  - rsync
+  - tmux
+  - tree
+  - wget
+  # - vim # as of 2023-05, macOS 13.4 has a newer version of Vim than Pkgsrc.
+
+# not available as of 2023-05: btop, ccze, shellcheck
+
+macws_cask_software_list:
+  - adium
+  - firefox
+  - geekbench
+  - gimp
+  - iterm2
+  - keepassxc
+  - keepingyouawake
+  - libreoffice
+  - libreoffice-language-pack
+  - maintenance
+  - mysqlworkbench
+  - nextcloud
+  - onyx
+  - podman-desktop
+  - skype
+  - spotify
+  - thunderbird
+  - tor-browser
+  - tunnelblick
+  - utm
+  - vlc
+  - wireshark
+
+macws_brew_pkg_list:
+  - mas
+
+macws_mas_software_list:
+  - "425264550" # Blackmagic Disk Speed Test
+  - "1466185689" # Blackmagic RAW Speed Test
+  - "425424353" # The Unarchiver

@@ -1,2 +1,38 @@
 ---
 # tasks file for bootstrap_workstation_macos
+
+- name: "Install Pkgsrc packages"
+  tags:
+    - packages
+    - pkgin
+  community.general.pkgin:
+    name: "{{ macws_pkgin_pkg_list }}"
+    state: present
+
+- name: "Install graphical software with Cask"
+  tags:
+    - software
+    - brew
+    - cask
+  community.general.homebrew_cask:
+    name: "{{ macws_cask_software_list }}"
+    state: present
+    sudo_password: "{{ ansible_become_pass }}"
+
+- name: "Install Homebrew formulaes"
+  tags:
+    - packages
+    - brew
+    - formulae
+  community.general.homebrew:
+    name: "{{ macws_brew_pkg_list }}"
+    state: present
+
+- name: "Install software from Mac App Store"
+  tags:
+    - software
+    - brew
+    - mas
+  community.general.mas:
+    id: "{{ macws_mas_software_list | format(_string) }}"
+    state: present

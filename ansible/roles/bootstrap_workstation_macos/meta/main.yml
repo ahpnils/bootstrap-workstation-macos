@@ -9,10 +9,7 @@ galaxy_info:
   platforms:
     - name: macOS
       versions:
-        - Catalina
-        - Big-Sur
-        - Monterey
-        - Ventura
+        - all
 
   galaxy_tags: []
     # List tags for your role here, one per line. A tag is a keyword that describes

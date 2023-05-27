@@ -1,5 +1,5 @@
 ---
-- name: macOS Workstation Bootstrap Playbook
+- name: "Apple macOS Workstation Bootstrap Playbook"
   hosts: localhost
   become: true
   roles:
