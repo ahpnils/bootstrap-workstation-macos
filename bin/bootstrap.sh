@@ -35,7 +35,7 @@ fi
 # check macOS version. It should run on at least macOS Catalina, which is 10.15.
 # This gets easier with Big Sur (version 11) so for now this checks for at least
 # this version of macOS.
-if [ "$(sw_vers -productversion | awk -F '.' '{print $1}')" <= "11" ]; then
+if [ "$(sw_vers -productversion | awk -F '.' '{print $1}')" -lt 11 ]; then
   echo "ERROR: macOS version too low."
   echo "please use at least macOS 11 'Big Sur'"
   echo "exiting..."
