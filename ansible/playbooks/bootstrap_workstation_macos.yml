@@ -1,0 +1,8 @@
+---
+- name: macOS Workstation Bootstrap Playbook
+  hosts: localhost
+  become: true
+  roles:
+    - { role: bootstrap_workstation_macos }
+
+# vim:ts=2:sw=2
