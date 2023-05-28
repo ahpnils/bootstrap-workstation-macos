@@ -51,6 +51,6 @@ macws_brew_pkg_list:
   - mas
 
 macws_mas_software_list:
-  - "425264550" # Blackmagic Disk Speed Test
-  - "1466185689" # Blackmagic RAW Speed Test
-  - "425424353" # The Unarchiver
+  - 425264550 # Blackmagic Disk Speed Test
+  - 1466185689 # Blackmagic RAW Speed Test
+  - 425424353 # The Unarchiver

@@ -34,5 +34,5 @@
     - brew
     - mas
   community.general.mas:
-    id: "{{ macws_mas_software_list | format(_string) }}"
+    id: "{{ macws_mas_software_list }}"
     state: present
