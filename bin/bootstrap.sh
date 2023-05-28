@@ -86,6 +86,11 @@ cd "${repo_path}"
 git clone https://github.com/ahpnils/bootstrap-workstation-macos.git
 echo "Done !"
 
+echo "Installing role dependencies..."
+cd "${repo_path}/bootstrap-workstation-macos/ansible/roles/bootstrap_workstation_macos/"
+/opt/pkg/bin/ansible-galaxy install -r requirements.yml
+echo "Done !"
+
 echo "Executing the playbook..."
 cd "${repo_path}/bootstrap-workstation-macos"
 ANSIBLE_LOCALHOST_WARNING=False \
