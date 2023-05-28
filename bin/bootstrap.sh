@@ -76,7 +76,7 @@ if [ ! -f /opt/pkg/bin/pkgin ]; then
 fi
 
 if [ ! -f /opt/pkg/bin/ansible ]; then
-/opt/pkg/bin/pkgin -y install ansible-core 2>&1 /dev/null
+/opt/pkg/bin/pkgin -y install ansible 2>&1 /dev/null
 fi
 echo "Done !"
 
@@ -84,11 +84,6 @@ echo "Pulling the repository..."
 repo_path="$(mktemp -d)"
 cd "${repo_path}"
 git clone https://github.com/ahpnils/bootstrap-workstation-macos.git
-echo "Done !"
-
-echo "Installing role dependencies..."
-cd "${repo_path}/bootstrap-workstation-macos/ansible/roles/bootstrap_workstation_macos/"
-/opt/pkg/bin/ansible-galaxy install -r requirements.yml
 echo "Done !"
 
 echo "Executing the playbook..."
