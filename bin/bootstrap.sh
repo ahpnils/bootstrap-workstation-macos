@@ -19,12 +19,6 @@ repo_path=""
 
 echo "Sanity checks..."
 
-if [ "${current_uid}" != "0" ]; then
-  echo "ERROR: you need admin rights to run this script."
-  echo "exiting..."
-  exit 1
-fi
-
 if [ "$(uname -s)" != "Darwin" ]; then
   echo "ERROR: wrong OS detected."
   echo "please run this on macOS."
@@ -68,15 +62,15 @@ if [ ! -f /opt/pkg/bin/pkgin ]; then
 		--output "${dl_path}/${BOOTSTRAP_TAR}"
 	cd "${dl_path}"
 	echo "${BOOTSTRAP_SHA}  ${BOOTSTRAP_TAR}" | shasum -c-
-	tar -zxpf ${BOOTSTRAP_TAR} -C /
+	sudo tar -zxpf ${BOOTSTRAP_TAR} -C /
 	eval $(/usr/libexec/path_helper)
 	cd -
-	/opt/pkg/bin/pkgin -f update 2>&1 /dev/null
-	/opt/pkg/bin/pkgin -y upgrade 2>&1 /dev/null
+	sudo /opt/pkg/bin/pkgin -f update 2>&1 /dev/null
+	sudo /opt/pkg/bin/pkgin -y upgrade 2>&1 /dev/null
 fi
 
 if [ ! -f /opt/pkg/bin/ansible ]; then
-/opt/pkg/bin/pkgin -y install ansible 2>&1 /dev/null
+  sudo /opt/pkg/bin/pkgin -y install ansible 2>&1 /dev/null
 fi
 echo "Done !"
 
