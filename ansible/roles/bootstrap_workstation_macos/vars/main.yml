@@ -25,6 +25,7 @@ macws_pkgin_pkg_list:
 
 macws_cask_software_list:
   - adium
+  - blender-benchmark
   - firefox
   - geekbench
   - gimp
@@ -34,6 +35,7 @@ macws_cask_software_list:
   - libreoffice
   - libreoffice-language-pack
   - maintenance
+  - monolingual
   - mysqlworkbench
   - nextcloud
   - onyx
@@ -49,6 +51,7 @@ macws_cask_software_list:
 
 macws_brew_pkg_list:
   - mas
+  - btop
 
 macws_mas_software_list:
   - 425264550 # Blackmagic Disk Speed Test
