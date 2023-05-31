@@ -54,3 +54,125 @@ macws_mas_software_list:
   - 425264550 # Blackmagic Disk Speed Test
   - 1466185689 # Blackmagic RAW Speed Test
   - 425424353 # The Unarchiver
+
+macws_home_dir: "/Users"
+
+macws_users:
+  - name: nils
+    uid: 501
+    main_group: staff
+
+macws_directory_structure:
+  - path: "bin"
+    mode: "0700"
+  - path: "Documents/Projects/git/github/ahpnils"
+    mode: "0700"
+  - path: "Pictures/Avatars"
+    mode: "0755"
+  - path: "Pictures/Screenshots"
+    mode: "0755"
+  - path: "Pictures/Wallpapers"
+    mode: "0755"
+  - path: "tmp"
+    mode: "0700"
+  - path: ".local/share/applications"
+    mode: "0700"
+  - path: ".config/htop"
+    mode: "0700"
+  - path: ".vim/bundle"
+    mode: "0700"
+
+macws_dotfiles_commit: "a4f74d9"
+
+macws_vundle_commit: "b255382"
+
+macws_dotfiles_path: "~/Documents/Projects/git/github/ahpnils/dotfiles"
+
+macws_dotfiles_symlinks:
+  - name: "bashrc"
+    src: "{{ macws_dotfiles_path }}/bash/.bashrc"
+    dest: "~/.bashrc"
+  - name: "bash_profile"
+    src: "{{ macws_dotfiles_path }}/bash/.bash_profile"
+    dest: "~/.bash_profile"
+  - name: "vimrc"
+    src: "{{ macws_dotfiles_path }}/vim/.vimrc"
+    dest: "~/.vimrc"
+  - name: "tmux"
+    src: "{{ macws_dotfiles_path }}/tmux/.tmux.conf"
+    dest: "~/.tmux.conf"
+  - name: "gitconfig"
+    src: "{{ macws_dotfiles_path }}/git/.gitconfig"
+    dest: "~/.gitconfig"
+  - name: "gitignore"
+    src: "{{ macws_dotfiles_path }}/git/.gitignore"
+    dest: "~/.gitignore"
+  - name: "htop"
+    src: "{{ macws_dotfiles_path }}/htop/htoprc"
+    dest: "~/.config/htop/htoprc"
+  - name: "vundle"
+    src: "~/Documents/Projects/git/github/others/Vundle.vim"
+    dest: "~/.vim/bundle/Vundle.vim"
+
+macos_apple_defaults_list:
+  - name: "Activate firewall"
+    domain: "/Library/Preferences/com.apple.alf"
+    key: "globalstate"
+    type: "int"
+    value: 1 # default value is 0 (firewall disabled)
+    state: present
+  - name: "Trackpad: Haptic feedback (light, silent clicking) #1"
+    domain: "com.apple.AppleMultitouchTrackpad"
+    key: "FirstClickThreshold"
+    type: "int"
+    value: 0
+    state: present # default value is absent
+  - name: "Trackpad: Haptic feedback (light, silent clicking) #2"
+    domain: "com.apple.AppleMultitouchTrackpad"
+    key: "ActuationStrength"
+    type: "int"
+    value: 0
+    state: present # default value is absent
+  - name: "Disable auto-correct"
+    domain: "NSGlobalDomain"
+    key: "NSAutomaticSpellingCorrectionEnabled"
+    type: "bool"
+    value: "false"
+    state: present # default value is absent, which corresponds to auto-correct enabled
+  - name: "Save screenshots in another directory"
+    domain: "com.apple.screencapture"
+    key: "location"
+    type: "string"
+    value: "${HOME}/Pictures/Screenshots"
+    state: present # default value is absent, which correspond to ${HOME}/Desktop
+  - name: "Save screenshots in Jpeg format"
+    domain: "com.apple.screencapture"
+    key: "type"
+    type: "string"
+    value: "jpg"
+    state: present # default value is absent, which correspond to png
+  - name: "Finder: show status bar"
+    domain: "com.apple.finder"
+    key: "ShowStatusBar"
+    type: "bool"
+    value: "true"
+    state: present # default value is absent, which correspond to false (don't show status bar)
+  - name: "Display full POSIX path as Finder window title"
+    domain: "com.apple.finder"
+    key: "_FXShowPosixPathInTitle"
+    type: "bool"
+    value: "true"
+    state: present # default value is absent, which correspond to false (don't display full POSIX path)
+  - name: "Avoid creating .DS_Store files on network volumes"
+    domain: "com.apple.desktopservices"
+    key: "DSDontWriteNetworkStores"
+    type: "bool"
+    value: "true"
+    state: present # default value is absent, which correspond to false (create .DS_Store files on network volumes)
+  - name: "Use list view in all Finder windows by default"
+    domain: "com.apple.finder"
+    key: "FXPreferredViewStyle"
+    type: "string"
+    value: "Nlsv"
+    state: present # default value would be Nlsv
+

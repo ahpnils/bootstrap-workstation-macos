@@ -35,3 +35,107 @@
   community.general.mas:
     id: "{{ macws_mas_software_list }}"
     state: present
+
+- name: "Create users' directory structure"
+  tags:
+    - users
+    - dirs
+  ansible.builtin.file:
+    path: "{{ macws_home_dir }}/{{ item.0.name }}/{{ item.1.path }}"
+    state: directory
+    mode: "{{ item.1.mode }}"
+    owner: "{{ item.0.name }}"
+    group: "{{ item.0.main_group }}"
+    force: true
+    recurse: true
+  loop: "{{ macws_users | product(macws_directory_structure) | list }}"
+  loop_control:
+    label: "{{ item.0.name }} {{ item.1 }}"
+
+- name: "Clone dotfiles git repository"
+  tags:
+    - users
+    - git
+  become_user: "{{ item.name }}"
+  ansible.builtin.git:
+    repo: "https://github.com/ahpnils/dotfiles.git"
+    dest: "{{ macws_home_dir }}/{{ item.name }}/Documents/Projects/git/github/ahpnils/dotfiles/"
+    version: "{{ macws_dotfiles_commit }}"
+    clone: true
+    update: true
+    umask: "0022"
+    force: true
+  loop: "{{ macws_users | flatten(levels=1) }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: "Clone Vundle git repository"
+  tags:
+    - users
+    - git
+  become_user: "{{ item.name }}"
+  ansible.builtin.git:
+    repo: "https://github.com/VundleVim/Vundle.vim.git"
+    dest: "{{ macws_home_dir }}/{{ item.name }}/Documents/Projects/git/github/others/Vundle.vim/"
+    version: "{{ macws_vundle_commit }}"
+    clone: true
+    update: true
+    umask: "0022"
+    force: true
+  loop: "{{ macws_users | flatten(levels=1) }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: "Symlinks for dotfiles"
+  tags:
+    - users
+    - dotfiles
+  become_user: "{{ item.0.name }}"
+  ansible.builtin.file:
+    src: "{{ item.1.src }}"
+    dest: "{{ item.1.dest }}"
+    owner: "{{ item.0.name }}"
+    group: "{{ item.0.main_group }}"
+    state: link
+    force: true
+  loop: "{{ macws_users | product(macws_dotfiles_symlinks) | list }}"
+  loop_control:
+    label: "{{ item.0.name }} - {{ item.1.src }}"
+
+- name: "Vundle plugin installation"
+  tags:
+    - users
+    - git
+  become_user: "{{ item.name }}"
+  ansible.builtin.command: "vim +PluginInstall +qall"
+  loop: "{{ macws_users | flatten(levels=1) }}"
+  loop_control:
+    label: "{{ item.name }}"
+  changed_when: false
+
+#- name: "Extract Firefox Developer Edition"
+#  tags:
+#    - software
+#    - firefox
+#  become_user: "{{ item.name }}"
+#  ansible.builtin.unarchive:
+#    src: "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=osx64&lang=en-US"
+#    remote_src: "true"
+#    dest: "{{ ws_home_dir }}/{{ item.name }}/bin/"
+#  loop: "{{ ws_users | flatten(levels=1) }}"
+#  loop_control:
+#    label: "{{ item.name }}"
+
+- name: "Customize macOS desktop with defaults"
+  tags:
+    - desktop
+    - apple_defaults
+  community.general.osx_defaults:
+    domain: "{{ item.domain }}"
+    key: "{{ item.key }}"
+    type: "{{ item.type }}"
+    value: "{{ item.value }}"
+    state: "{{ item.state }}"
+  loop: "{{ macos_apple_defaults_list }}"
+  loop_control:
+    label: "{{ item.name }}"
