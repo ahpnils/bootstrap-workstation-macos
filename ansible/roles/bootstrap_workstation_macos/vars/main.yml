@@ -244,10 +244,10 @@ dockitems_persist:
     pos: 10
   - name: Reminders
     path: "/Applications/Reminders.app/"
-    pos: 10
+    pos: 11
   - name: Notes
     path: "/Applications/Notes.app/"
-    pos: 11
+    pos: 12
   - name: 'System Settings'
     path: "/Applications/System Settings.app/"
-    pos: 12
+    pos: 13
