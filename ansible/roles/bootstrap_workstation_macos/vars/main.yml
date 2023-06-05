@@ -136,6 +136,18 @@ macos_apple_defaults_list:
     type: "int"
     value: 0
     state: present # default value is absent
+  - name: "Trackpad: tap to click #1"
+    domain: "com.apple.AppleMultitouchTrackpad"
+    key: "Clicking"
+    type: "bool"
+    value: true # default value is false
+    state: present
+  - name: "Trackpad: tap to click #2"
+    domain: "com.apple.driver.AppleBluetoothMultitouch.trackpad"
+    key: "Clicking"
+    type: "bool"
+    value: true # default value is false
+    state: present
   - name: "Disable auto-correct"
     domain: "NSGlobalDomain"
     key: "NSAutomaticSpellingCorrectionEnabled"
