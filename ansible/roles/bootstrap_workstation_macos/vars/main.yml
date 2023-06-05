@@ -52,6 +52,7 @@ macws_cask_software_list:
 macws_brew_pkg_list:
   - mas
   - btop
+  - dockutil
 
 macws_mas_software_list:
   - 425264550 # Blackmagic Disk Speed Test
