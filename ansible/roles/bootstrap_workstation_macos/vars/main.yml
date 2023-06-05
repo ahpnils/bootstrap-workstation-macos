@@ -198,3 +198,15 @@ macos_apple_defaults_list:
     value: "left"
     state: present # default value is absent, which means the dock is on the bottom.
 
+dockitems_remove:
+  - Safari
+  - Mail
+  - Maps
+  - Photos
+  - FaceTime
+  - Calendar
+  - Contacts
+  - Freeform
+  - TV
+  - Music
+  - 'App Store'
