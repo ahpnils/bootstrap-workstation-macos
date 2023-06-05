@@ -3,5 +3,6 @@
   hosts: localhost
   roles:
     - { role: bootstrap_workstation_macos }
+    - { role: geerlingguy.mac.dock }
 
 # vim:ts=2:sw=2
