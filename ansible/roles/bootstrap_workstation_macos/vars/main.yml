@@ -221,33 +221,36 @@ dockitems_persist:
   - name: Firefox
     path: "/Applications/Firefox.app/"
     pos: 3
+  - name: 'Firefox Developer Edition'
+    path: "/Applications/Firefox Developer Edition.app/"
+    pos: 4
   - name: Thunderbird
     path: "/Applications/Thunderbird.app/"
-    pos: 4
+    pos: 5
   - name: Messages
     path: "/Applications/Messages.app/"
-    pos: 5
+    pos: 6
   - name: 'Telegram Lite'
     path: "/Applications/Telegram Lite.app/"
-    pos: 6
+    pos: 7
   - name: 'Podman Desktop'
     path: "/Applications/Podman Desktop.app/"
-    pos: 7
+    pos: 8
   - name: UTM
     path: "/Applications/UTM.app/"
-    pos: 8
+    pos: 9
   - name: Spotify
     path: "/Applications/Spotify.app/"
-    pos: 9
+    pos: 10
   - name: iTerm
     path: "/Applications/iTerm.app/"
-    pos: 10
+    pos: 11
   - name: Reminders
     path: "/Applications/Reminders.app/"
-    pos: 11
+    pos: 12
   - name: Notes
     path: "/Applications/Notes.app/"
-    pos: 12
+    pos: 13
   - name: 'System Settings'
     path: "/Applications/System Settings.app/"
     pos: 13

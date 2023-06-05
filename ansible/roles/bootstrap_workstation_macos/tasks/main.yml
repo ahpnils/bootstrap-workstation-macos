@@ -113,18 +113,50 @@
     label: "{{ item.name }}"
   changed_when: false
 
-#- name: "Extract Firefox Developer Edition"
-#  tags:
-#    - software
-#    - firefox
-#  become_user: "{{ item.name }}"
-#  ansible.builtin.unarchive:
-#    src: "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=osx64&lang=en-US"
-#    remote_src: "true"
-#    dest: "{{ ws_home_dir }}/{{ item.name }}/bin/"
-#  loop: "{{ ws_users | flatten(levels=1) }}"
-#  loop_control:
-#    label: "{{ item.name }}"
+- name: "Register Firefox Developer Edition path"
+  tags:
+    - software
+    - firefox
+  local_action: stat path="/Applications/Firefox Developer Edition.app"
+  register: firefoxdev_exists
+
+- name: "Download Firefox Developer Edition"
+  tags:
+    - software
+    - firefox
+  ansible.builtin.get_url:
+    url: "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=osx&lang=en-US"
+    dest: "${HOME}/Downloads/FirefoxDev.dmg"
+  when: firefoxdev_exists.stat.exists == False
+
+- name: "Mount Firefox Developer Edition dmg"
+  tags:
+    - software
+    - firefox
+  ansible.builtin.shell: "hdiutil attach ${HOME}/Downloads/FirefoxDev.dmg -mountpoint '/Volumes/FirefoxDev'"
+  register: mount_result
+  changed_when: "'/Volumes/FirefoxDev' is exists"
+  failed_when: "not '/Volumes/FirefoxDev' is exists"
+  when: firefoxdev_exists.stat.exists == False
+
+- name: "Install Firefox Developer Edition"
+  tags:
+    - software
+    - firefox
+  ansible.builtin.copy:
+    src: "/Volumes/FirefoxDev/Firefox Developer Edition.app"
+    dest: "/Applications/"
+    remote_src: true
+  when: firefoxdev_exists.stat.exists == False
+
+- name: "Unmount Firefox Developer Edition dmg"
+  tags:
+    - software
+    - firefox
+  ansible.builtin.shell: "hdiutil detach /Volumes/FirefoxDev"
+  register: umount_result
+  changed_when: "not '/Volumes/FirefoxDev' is exists"
+  when: firefoxdev_exists.stat.exists == False
 
 - name: "Customize macOS desktop with defaults"
   tags:
