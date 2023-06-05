@@ -51,7 +51,6 @@ macws_cask_software_list:
 
 macws_brew_pkg_list:
   - btop
-  - dockutil
   - mas
 
 macws_mas_software_list:
