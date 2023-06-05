@@ -57,6 +57,7 @@ macws_mas_software_list:
   - 425264550 # Blackmagic Disk Speed Test
   - 1466185689 # Blackmagic RAW Speed Test
   - 425424353 # The Unarchiver
+  - 946399090 # Telegram Lite
 
 macws_home_dir: "/Users"
 
@@ -209,3 +210,44 @@ dockitems_remove:
   - TV
   - Music
   - 'App Store'
+
+dockitems_persist:
+  - name: Launchpad
+    path: "/Applications/Launchpad.app/"
+    pos: 2
+  - name: KeePassXC
+    path: "/Applications/KeePassXC.app/"
+    pos: 2
+  - name: Firefox
+    path: "/Applications/Firefox.app/"
+    pos: 3
+  - name: Thunderbird
+    path: "/Applications/Thunderbird.app/"
+    pos: 4
+  - name: Messages
+    path: "/Applications/Messages.app/"
+    pos: 5
+  - name: 'Telegram Lite'
+    path: "/Applications/Telegram Lite.app/"
+    pos: 6
+  - name: 'Podman Desktop'
+    path: "/Applications/Podman Desktop.app/"
+    pos: 7
+  - name: UTM
+    path: "/Applications/UTM.app/"
+    pos: 8
+  - name: Spotify
+    path: "/Applications/Spotify.app/"
+    pos: 9
+  - name: iTerm
+    path: "/Applications/iTerm.app/"
+    pos: 10
+  - name: Reminders
+    path: "/Applications/Reminders.app/"
+    pos: 10
+  - name: Notes
+    path: "/Applications/Notes.app/"
+    pos: 11
+  - name: 'System Settings'
+    path: "/Applications/System Settings.app/"
+    pos: 12
