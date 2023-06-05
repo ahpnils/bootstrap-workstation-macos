@@ -139,3 +139,10 @@
   loop: "{{ macos_apple_defaults_list }}"
   loop_control:
     label: "{{ item.name }}"
+
+- name: "Restart the macOS dock"
+  tags:
+    - desktop
+    - dock
+  ansible.builtin.command: "killall Dock"
+  changed_when: false

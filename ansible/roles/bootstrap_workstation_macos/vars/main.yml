@@ -190,4 +190,10 @@ macos_apple_defaults_list:
     type: "string"
     value: "Nlsv"
     state: present # default value would be Nlsv
+  - name: "Move the dock to the left"
+    domain: "com.apple.dock"
+    key: "orientation"
+    type: "string"
+    value: "left"
+    state: present # default value is absent, which means the dock is on the bottom.
 
