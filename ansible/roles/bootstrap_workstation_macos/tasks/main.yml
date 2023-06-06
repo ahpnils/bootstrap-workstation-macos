@@ -52,6 +52,24 @@
   loop_control:
     label: "{{ item.0.name }} {{ item.1 }}"
 
+- name: "Copy wallpaper file"
+  tags:
+    - desktop
+    - wallpaper
+  ansible.builtin.copy:
+    src: "files/users/nils/wallpaper.png"
+    dest: "${HOME}/Pictures/Wallpapers/01_wallpaper.png"
+    mode: "0644"
+
+- name: "Copy avatar file"
+  tags:
+    - desktop
+    - avatar
+  ansible.builtin.copy:
+    src: "files/users/nils/avatar.png"
+    dest: "${HOME}/Pictures/Avatars/01_avatar.png"
+    mode: "0644"
+
 - name: "Clone dotfiles git repository"
   tags:
     - users
