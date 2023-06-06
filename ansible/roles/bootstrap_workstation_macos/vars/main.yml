@@ -26,6 +26,7 @@ macws_pkgin_pkg_list:
 macws_cask_software_list:
   - adium
   - blender-benchmark
+  - discord
   - firefox
   - geekbench
   - gimp
@@ -233,24 +234,27 @@ dockitems_persist:
   - name: 'Telegram Lite'
     path: "/Applications/Telegram Lite.app/"
     pos: 7
+  - name: 'Discord'
+    path: "/Applications/Discord.app/"
+    pos: 8
   - name: 'Podman Desktop'
     path: "/Applications/Podman Desktop.app/"
-    pos: 8
+    pos: 9
   - name: UTM
     path: "/Applications/UTM.app/"
-    pos: 9
+    pos: 10
   - name: Spotify
     path: "/Applications/Spotify.app/"
-    pos: 10
+    pos: 11
   - name: iTerm
     path: "/Applications/iTerm.app/"
-    pos: 11
+    pos: 12
   - name: Reminders
     path: "/Applications/Reminders.app/"
-    pos: 12
+    pos: 13
   - name: Notes
     path: "/Applications/Notes.app/"
-    pos: 13
+    pos: 14
   - name: 'System Settings'
     path: "/Applications/System Settings.app/"
-    pos: 13
+    pos: 15
