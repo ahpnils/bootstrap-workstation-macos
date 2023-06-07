@@ -198,6 +198,12 @@ macos_apple_defaults_list:
     type: "string"
     value: "left"
     state: present # default value is absent, which means the dock is on the bottom.
+  - name: "Hot corners : bottom right to lock screen"
+    domain: "com.apple.dock"
+    key: "wvous-br-corner"
+    type: "int"
+    value: "13"
+    state: present
 
 dockitems_remove:
   - Safari
