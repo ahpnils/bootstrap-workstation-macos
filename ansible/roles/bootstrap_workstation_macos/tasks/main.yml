@@ -61,6 +61,12 @@
     dest: "${HOME}/Pictures/Wallpapers/01_wallpaper.png"
     mode: "0644"
 
+- name: "Configure wallpaper"
+  tags:
+    - desktop
+    - wallpaper
+  ansible.builtin.shell: "osascript -e 'tell application \"System Events\" to tell every desktop to set picture to \"/Users/nils/Pictures/Wallpapers/01_wallpaper.png\" as POSIX file'"
+
 - name: "Copy avatar file"
   tags:
     - desktop
