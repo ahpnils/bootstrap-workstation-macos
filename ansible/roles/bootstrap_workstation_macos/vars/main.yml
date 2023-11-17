@@ -7,7 +7,7 @@ macws_pkgin_pkg_list:
   - bat
   - coreutils
   - curl
-  - exa
+  - eza
   - git-base
   - git-delta
   - gh
@@ -26,6 +26,7 @@ macws_pkgin_pkg_list:
 macws_cask_software_list:
   - adium
   - blender-benchmark
+  - cinebench
   - discord
   - firefox
   - geekbench
