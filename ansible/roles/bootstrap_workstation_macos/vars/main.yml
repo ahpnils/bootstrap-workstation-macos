@@ -54,6 +54,7 @@ macws_cask_software_list:
 macws_brew_pkg_list:
   - btop
   - mas
+  - vim # as of 2024-03, Homebrew's VIm is more up-to-date than macOS 14.4.
 
 macws_mas_software_list:
   - 425264550 # Blackmagic Disk Speed Test
@@ -88,9 +89,9 @@ macws_directory_structure:
   - path: ".vim/bundle"
     mode: "0700"
 
-macws_dotfiles_commit: "a4f74d9"
+macws_dotfiles_commit: "793a0a2"
 
-macws_vundle_commit: "b255382"
+macws_vundle_commit: "0765c5c"
 
 macws_dotfiles_path: "~/Documents/Projects/git/github/ahpnils/dotfiles"
 
