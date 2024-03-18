@@ -55,9 +55,10 @@ if [ ! -f /usr/local/bin/brew ]; then
 fi
 
 # Pkgsrc
+# Following instructions in https://pkgsrc.joyent.com/install-on-macos/
 if [ ! -f /opt/pkg/bin/pkgin ]; then
-	BOOTSTRAP_TAR="bootstrap-macos11-trunk-x86_64-20220928.tar.gz"
-	BOOTSTRAP_SHA="cc8b2788b204369ac2d65a9fc413d3b4efa3328f"
+	BOOTSTRAP_TAR="bootstrap-macos11-trunk-x86_64-20240212.tar.gz"
+	BOOTSTRAP_SHA="c4b71fe9bf0ef89cc8d38909496a75693050cd96"
 	curl https://pkgsrc.smartos.org/packages/Darwin/bootstrap/${BOOTSTRAP_TAR} \
 		--output "${dl_path}/${BOOTSTRAP_TAR}"
 	cd "${dl_path}"
