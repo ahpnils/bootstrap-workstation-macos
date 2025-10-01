@@ -12,9 +12,6 @@ set -o pipefail
 # Turn on traces, useful while debugging but commentend out by default
 # set -o xtrace
 
-current_uid=$(id -u)
-os_release_file="/etc/os-release"
-oldest_os_version="37"
 repo_path=""
 
 echo "Sanity checks..."
@@ -26,12 +23,12 @@ if [ "$(uname -s)" != "Darwin" ]; then
   exit 1
 fi
 
-# check macOS version. It should run on at least macOS Catalina, which is 10.15.
-# This gets easier with Big Sur (version 11) so for now this checks for at least
-# this version of macOS.
-if [ "$(sw_vers -productversion | awk -F '.' '{print $1}')" -lt 11 ]; then
+# check macOS version.
+# Pkgsrc on Apple Silicon requires macOS 14.5 but requires 12.3 on Intel, so 
+# I'm checking for at least macOS 14.
+if [ "$(sw_vers -productversion | awk -F '.' '{print $1}')" -lt 14 ]; then
   echo "ERROR: macOS version too low."
-  echo "please use at least macOS 11 'Big Sur'"
+  echo "please use at least macOS 14 'Sonoma'"
   echo "exiting..."
   exit 1
 fi
@@ -56,15 +53,30 @@ fi
 
 # Pkgsrc
 # Following instructions in https://pkgsrc.joyent.com/install-on-macos/
+arch=$(uname -m)
+case $arch in
+  x86_64) # Intel
+    BOOTSTRAP_TAR="bootstrap-macos12.3-trunk-x86_64-20240426.tar.gz"
+    BOOTSTRAP_SHA="2b151d12576befd85312ddb5261307998f16df2f"
+    ;;
+  arm64) # Apple Silicon
+    BOOTSTRAP_TAR="bootstrap-macos14.5-trunk-arm64-20250905.tar.gz"
+    BOOTSTRAP_SHA="30565b8e6a6af562d4585055938addc443c0dcda"
+    ;;
+  *)
+    echo "ERROR: invalid CPU architecture."
+    echo "exiting..."
+    exit 1
+    ;;
+esac
+
 if [ ! -f /opt/pkg/bin/pkgin ]; then
-  BOOTSTRAP_TAR="bootstrap-macos12.3-trunk-x86_64-20240426.tar.gz"
-  BOOTSTRAP_SHA="2b151d12576befd85312ddb5261307998f16df2f"
 	curl https://pkgsrc.smartos.org/packages/Darwin/bootstrap/${BOOTSTRAP_TAR} \
 		--output "${dl_path}/${BOOTSTRAP_TAR}"
 	cd "${dl_path}"
 	echo "${BOOTSTRAP_SHA}  ${BOOTSTRAP_TAR}" | shasum -c-
 	sudo tar -zxpf ${BOOTSTRAP_TAR} -C /
-	eval $(/usr/libexec/path_helper)
+	eval "$(/usr/libexec/path_helper)"
 	cd -
 	sudo /opt/pkg/bin/pkgin -f update 2>&1 /dev/null
 	sudo /opt/pkg/bin/pkgin -y upgrade 2>&1 /dev/null
@@ -89,7 +101,7 @@ ANSIBLE_LOCALHOST_WARNING=False \
 echo "Done !"
  
 echo "Clean-up phase..."
-cd ${OLDPWD}
+cd "${OLDPWD}"
 rm -rf "${dl_path}"
 rm -rf "${repo_path}"
 echo "Done !"

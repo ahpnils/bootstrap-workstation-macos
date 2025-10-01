@@ -16,6 +16,7 @@ macws_pkgin_pkg_list:
   - iftop
   - most
   - rsync
+  - stow
   - tmux
   - tree
   - wget
@@ -30,8 +31,8 @@ macws_cask_software_list:
   - discord
   - firefox
   - geekbench
+  - ghostty
   - gimp
-  - iterm2
   - keepassxc
   - keepingyouawake
   - libreoffice
@@ -42,7 +43,6 @@ macws_cask_software_list:
   - nextcloud
   - onyx
   - podman-desktop
-  - skype
   - spotify
   - thunderbird
   - tor-browser
@@ -54,6 +54,7 @@ macws_cask_software_list:
 macws_brew_pkg_list:
   - btop
   - mas
+  - starship
   - vim # as of 2024-03, Homebrew's VIm is more up-to-date than macOS 14.4.
 
 macws_mas_software_list:
@@ -89,37 +90,9 @@ macws_directory_structure:
   - path: ".vim/bundle"
     mode: "0700"
 
-macws_dotfiles_commit: "793a0a2"
-
-macws_vundle_commit: "0765c5c"
+macws_dotfiles_commit: "4c54504"
 
 macws_dotfiles_path: "~/Documents/Projects/git/github/ahpnils/dotfiles"
-
-macws_dotfiles_symlinks:
-  - name: "bashrc"
-    src: "{{ macws_dotfiles_path }}/bash/.bashrc"
-    dest: "~/.bashrc"
-  - name: "bash_profile"
-    src: "{{ macws_dotfiles_path }}/bash/.bash_profile"
-    dest: "~/.bash_profile"
-  - name: "vimrc"
-    src: "{{ macws_dotfiles_path }}/vim/.vimrc"
-    dest: "~/.vimrc"
-  - name: "tmux"
-    src: "{{ macws_dotfiles_path }}/tmux/.tmux.conf"
-    dest: "~/.tmux.conf"
-  - name: "gitconfig"
-    src: "{{ macws_dotfiles_path }}/git/.gitconfig"
-    dest: "~/.gitconfig"
-  - name: "gitignore"
-    src: "{{ macws_dotfiles_path }}/git/.gitignore"
-    dest: "~/.gitignore"
-  - name: "htop"
-    src: "{{ macws_dotfiles_path }}/htop/htoprc"
-    dest: "~/.config/htop/htoprc"
-  - name: "vundle"
-    src: "~/Documents/Projects/git/github/others/Vundle.vim"
-    dest: "~/.vim/bundle/Vundle.vim"
 
 macos_apple_defaults_list:
   - name: "Activate firewall"

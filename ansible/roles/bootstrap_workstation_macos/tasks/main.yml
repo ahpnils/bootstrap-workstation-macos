@@ -65,7 +65,9 @@
   tags:
     - desktop
     - wallpaper
-  ansible.builtin.shell: "osascript -e 'tell application \"System Events\" to tell every desktop to set picture to \"/Users/nils/Pictures/Wallpapers/01_wallpaper.png\" as POSIX file'"
+  ansible.builtin.command: "osascript -e 'tell application \"System Events\" to tell every desktop to set picture to \"/Users/nils/Pictures/Wallpapers/01_wallpaper.png\" as POSIX file'" # noqa: yaml[line-length]
+  register: osascript_output
+  changed_when: osascript_output.rc != 0
 
 - name: "Copy avatar file"
   tags:
@@ -80,6 +82,7 @@
   tags:
     - users
     - git
+  become: true
   become_user: "{{ item.name }}"
   ansible.builtin.git:
     repo: "https://github.com/ahpnils/dotfiles.git"
@@ -93,55 +96,49 @@
   loop_control:
     label: "{{ item.name }}"
 
-- name: "Clone Vundle git repository"
-  tags:
-    - users
-    - git
-  become_user: "{{ item.name }}"
-  ansible.builtin.git:
-    repo: "https://github.com/VundleVim/Vundle.vim.git"
-    dest: "{{ macws_home_dir }}/{{ item.name }}/Documents/Projects/git/github/others/Vundle.vim/"
-    version: "{{ macws_vundle_commit }}"
-    clone: true
-    update: true
-    umask: "0022"
-    force: true
-  loop: "{{ macws_users | flatten(levels=1) }}"
-  loop_control:
-    label: "{{ item.name }}"
-
-- name: "Symlinks for dotfiles"
+- name: "Make vim-deps"
   tags:
     - users
     - dotfiles
-  become_user: "{{ item.0.name }}"
-  ansible.builtin.file:
-    src: "{{ item.1.src }}"
-    dest: "{{ item.1.dest }}"
-    owner: "{{ item.0.name }}"
-    group: "{{ item.0.main_group }}"
-    state: link
-    force: true
-  loop: "{{ macws_users | product(macws_dotfiles_symlinks) | list }}"
-  loop_control:
-    label: "{{ item.0.name }} - {{ item.1.src }}"
-
-- name: "Vundle plugin installation"
-  tags:
-    - users
-    - git
-  become_user: "{{ item.name }}"
-  ansible.builtin.command: "vim +PluginInstall +qall"
+  ansible.builtin.command:
+    cmd: "make vim-deps"
+    chdir: "{{ macws_home_dir }}/{{ item.name }}/Documents/Projects/git/github/ahpnils/dotfiles/"
+  changed_when: false
   loop: "{{ macws_users | flatten(levels=1) }}"
   loop_control:
     label: "{{ item.name }}"
+
+- name: "Make starship-stow"
+  tags:
+    - users
+    - dotfiles
+  ansible.builtin.command:
+    cmd: "make starship-stow"
+    chdir: "{{ macws_home_dir }}/{{ item.name }}/Documents/Projects/git/github/ahpnils/dotfiles/"
   changed_when: false
+  loop: "{{ macws_users | flatten(levels=1) }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: "Make stow"
+  tags:
+    - users
+    - dotfiles
+  ansible.builtin.command:
+    cmd: "make stow"
+    chdir: "{{ macws_home_dir }}/{{ item.name }}/Documents/Projects/git/github/ahpnils/dotfiles/"
+  changed_when: false
+  loop: "{{ macws_users | flatten(levels=1) }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: "Register Firefox Developer Edition path"
   tags:
     - software
     - firefox
-  local_action: stat path="/Applications/Firefox Developer Edition.app"
+  ansible.builtin.stat:
+    path: "/Applications/Firefox Developer Edition.app"
+  delegate_to: localhost
   register: firefoxdev_exists
 
 - name: "Download Firefox Developer Edition"
@@ -151,7 +148,8 @@
   ansible.builtin.get_url:
     url: "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=osx&lang=en-US"
     dest: "${HOME}/Downloads/FirefoxDev.dmg"
-  when: firefoxdev_exists.stat.exists == False
+    mode: "0700"
+  when: not firefoxdev_exists.stat.exists
 
 - name: "Mount Firefox Developer Edition dmg"
   tags:
@@ -161,7 +159,7 @@
   register: mount_result
   changed_when: "'/Volumes/FirefoxDev' is exists"
   failed_when: "not '/Volumes/FirefoxDev' is exists"
-  when: firefoxdev_exists.stat.exists == False
+  when: not firefoxdev_exists.stat.exists
 
 - name: "Install Firefox Developer Edition"
   tags:
@@ -171,16 +169,17 @@
     src: "/Volumes/FirefoxDev/Firefox Developer Edition.app"
     dest: "/Applications/"
     remote_src: true
-  when: firefoxdev_exists.stat.exists == False
+    mode: "0700"
+  when: not firefoxdev_exists.stat.exists
 
 - name: "Unmount Firefox Developer Edition dmg"
   tags:
     - software
     - firefox
-  ansible.builtin.shell: "hdiutil detach /Volumes/FirefoxDev"
+  ansible.builtin.command: "hdiutil detach /Volumes/FirefoxDev"
   register: umount_result
   changed_when: "not '/Volumes/FirefoxDev' is exists"
-  when: firefoxdev_exists.stat.exists == False
+  when: not firefoxdev_exists.stat.exists
 
 - name: "Customize macOS desktop with defaults"
   tags:
