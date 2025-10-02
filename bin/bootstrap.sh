@@ -44,12 +44,12 @@ echo "Installing software dependencies..."
 
 dl_path="$(mktemp -d)"
 # Homebrew
-if [ ! -f /usr/local/bin/brew ]; then
+if [ ! -f /opt/homebrew/bin/brew ]; then
   curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh \
 	  --output "${dl_path}/brew_installer.sh"
   chmod +x "${dl_path}/brew_installer.sh"
   NONINTERACTIVE=1 "${dl_path}/brew_installer.sh"
-	/usr/local/bin/brew install mas 2>&1 /dev/null
+	/opt/homebrew/bin/brew install mas 2>&1 /dev/null
 fi
 
 # Pkgsrc
