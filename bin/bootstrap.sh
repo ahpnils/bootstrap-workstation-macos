@@ -49,7 +49,7 @@ if [ ! -f /opt/homebrew/bin/brew ]; then
 	  --output "${dl_path}/brew_installer.sh"
   chmod +x "${dl_path}/brew_installer.sh"
   NONINTERACTIVE=1 "${dl_path}/brew_installer.sh"
-	/opt/homebrew/bin/brew install mas 2>&1 /dev/null
+	/opt/homebrew/bin/brew install mas
 fi
 
 # Pkgsrc
