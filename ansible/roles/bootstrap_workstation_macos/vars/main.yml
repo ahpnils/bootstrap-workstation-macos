@@ -10,7 +10,6 @@ macws_pkgin_pkg_list:
   - eza
   - git-base
   - git-delta
-  - gh
   - gmake
   - htop
   - iftop
@@ -53,6 +52,7 @@ macws_cask_software_list:
 
 macws_brew_pkg_list:
   - btop
+  - gh
   - mas
   - starship
   - vim # as of 2024-03, Homebrew's VIm is more up-to-date than macOS 14.4.
