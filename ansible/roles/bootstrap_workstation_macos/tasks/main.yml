@@ -14,18 +14,28 @@
     - software
     - brew
     - cask
+  become: true
+  become_user: "{{ item.name }}"
   community.general.homebrew_cask:
     name: "{{ macws_cask_software_list }}"
     state: present
+  loop: "{{ macws_users | flatten(levels=1) }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: "Install Homebrew formulaes"
   tags:
     - packages
     - brew
     - formulae
+  become: true
+  become_user: "{{ item.name }}"
   community.general.homebrew:
     name: "{{ macws_brew_pkg_list }}"
     state: present
+  loop: "{{ macws_users | flatten(levels=1) }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: "Install software from Mac App Store"
   tags:
