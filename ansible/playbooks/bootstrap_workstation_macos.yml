@@ -2,7 +2,7 @@
 - name: "Apple macOS Workstation Bootstrap Playbook"
   hosts: localhost
   environment:
-    PATH: "/opt/pkg/sbin:/opt/pkg/sbin:/opt/homebrew/sbin:/opt/homebrew/bin:{{ lookup('env', 'PATH') }}"
+    PATH: "/opt/pkg/sbin:/opt/pkg/bin:/opt/homebrew/sbin:/opt/homebrew/bin:{{ lookup('env', 'PATH') }}"
   roles:
     - { role: bootstrap_workstation_macos }
     - { role: geerlingguy.mac.dock }
