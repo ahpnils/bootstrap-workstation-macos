@@ -96,7 +96,7 @@ echo "Done !"
 
 echo "Executing the playbook..."
 cd "${repo_path}/bootstrap-workstation-macos"
-ansible-galaxy collection install geerlingguy.mac
+/opt/pkg/bin/ansible-galaxy collection install geerlingguy.mac
 ANSIBLE_LOCALHOST_WARNING=False \
 	/opt/pkg/bin/ansible-playbook ./ansible/playbooks/bootstrap_workstation_macos.yml
 echo "Done !"
